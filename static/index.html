@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Votação Presidencial 2026 — Osasco (SP)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="zen-container">
+    <!-- Header -->
+    <header class="zen-header">
+      <div>
+        <span class="badge">Eleição Geral Federal 2026</span>
+        <h1 class="title">Resultado Presidencial em Osasco</h1>
+        <p class="subtitle">Apuração por seções eleitorais, locais de votação e candidatos do município de Osasco/SP.</p>
+      </div>
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="meta-label">Município</span>
+          <span class="meta-value">Osasco / SP</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">1º Turno</span>
+          <span class="meta-value">Presidente</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Visão Geral de Métricas -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="caption">Eleitorado Apto</div>
+        <div class="value" id="valAptos">—</div>
+        <div class="sub">Eleitores cadastrados</div>
+      </div>
+      <div class="metric-card">
+        <div class="caption">Comparecimento</div>
+        <div class="value" id="valComparecimento">—</div>
+        <div class="sub" id="subComparecimento">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="caption">Abstenções</div>
+        <div class="value" id="valAbstencoes">—</div>
+        <div class="sub" id="subAbstencoes">—</div>
+      </div>
+      <div class="metric-card">
+        <div class="caption">Total de Seções</div>
+        <div class="value" id="valSecoes">—</div>
+        <div class="sub">Urnas totalizadas</div>
+      </div>
+      <div class="metric-card">
+        <div class="caption">Locais de Votação</div>
+        <div class="value" id="valLocais">—</div>
+        <div class="sub">Escolas e faculdades</div>
+      </div>
+    </section>
+
+    <!-- Painel de Candidatos -->
+    <section>
+      <div class="section-title">
+        <span>Candidatos & Opções de Voto</span>
+        <small style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-sans);">Clique para filtrar seções</small>
+      </div>
+      <div class="candidates-strip" id="candidatesStrip">
+        <!-- Renderizado dinamicamente -->
+      </div>
+    </section>
+
+    <!-- Filtros de Pesquisa -->
+    <section class="search-panel">
+      <form id="searchForm" class="filter-grid">
+        <div class="form-group">
+          <label for="selectZone">Zona Eleitoral</label>
+          <select id="selectZone" class="form-control">
+            <option value="">Todas as Zonas</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="inputSecao">Nº da Seção</label>
+          <input type="number" id="inputSecao" class="form-control" placeholder="Ex: 74">
+        </div>
+
+        <div class="form-group">
+          <label for="selectCandidate">Candidato</label>
+          <select id="selectCandidate" class="form-control">
+            <option value="">Todos os Candidatos</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="inputLocal">Local ou Endereço</label>
+          <input type="text" id="inputLocal" class="form-control" placeholder="Ex: Paulo Freire, Anhanguera...">
+        </div>
+
+        <div class="btn-actions">
+          <button type="submit" class="btn btn-primary" style="flex: 2;">Pesquisar</button>
+          <button type="button" id="btnReset" class="btn btn-secondary" style="flex: 1;">Limpar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Tabela de Resultados -->
+    <section class="results-container">
+      <div class="results-header">
+        <div class="section-title" style="margin-bottom: 0;">Resultados por Seção</div>
+        <div class="results-count" id="resultsCount">Carregando...</div>
+      </div>
+      <div class="table-responsive">
+        <table class="zen-table">
+          <thead>
+            <tr>
+              <th style="width: 100px;">Zona</th>
+              <th style="width: 100px;">Seção</th>
+              <th>Local de Votação & Endereço</th>
+              <th>Candidato</th>
+              <th style="width: 110px;">Votos</th>
+              <th style="width: 110px;">% Seção</th>
+              <th style="width: 90px; text-align: right;">Ação</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody">
+            <!-- Linhas inseridas pelo JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Rodapé Minimalista Zen -->
+    <footer class="zen-footer">
+      <p>Dados oficiais extraídos do Boletim de Urna (TSE) • Eleição Presidencial 2026 • Osasco / SP</p>
+    </footer>
+  </div>
+
+  <!-- Modal Detalhe da Seção -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+      <button class="modal-close" id="modalCloseBtn">&times;</button>
+      <h2 class="modal-title" id="modalTitle">Detalhes da Seção</h2>
+      <p class="modal-subtitle" id="modalSubtitle">Local de Votação</p>
+      <div id="modalSectionDetails">
+        <!-- Detalhes preenchidos via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
